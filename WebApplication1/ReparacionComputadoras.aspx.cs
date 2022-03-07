@@ -14,7 +14,11 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                lblMensaje1.Visible = false;
+                lblMensaje2.Visible = false;
+            }
         }
 
         public bool ValidarRad()
@@ -28,21 +32,44 @@ namespace WebApplication1
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            //string mensaje = "hola";
+            ////ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showpop('" + mensaje + "')</script>", false);
+            //ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showpop5('" + mensaje + "')</script>", false);
             try
             {
-                if (ValidarRad())
+                if (ValidarRad() && txtNombre.Text != null)
                 {
+                    SqlConnection connection = new SqlConnection(con);
+                    connection.Open();
 
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Clientes VALUES (@Nombre, @Telefono, @Enciende, @SeApaga, @EsLenta, @Limpieza, @CambioComponente, @InstalarProgramas)", connection);
+                    cmd.Parameters.AddWithValue("@Nombre", txtNombre.Text);
+                    cmd.Parameters.AddWithValue("@Telefono", txtTelefono.Text);
+                    cmd.Parameters.AddWithValue("@Enciende", radlstEnciende.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@SeApaga", radlstApaga.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@EsLenta", radlstLenta.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@Limpieza", radlstLimpieza.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@CambioComponente", radlstComponente.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@InstalarProgramas", radlstPrograma.SelectedIndex);
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+
+                    lblMensaje2.Visible = false;
+                    lblMensaje1.Visible = true;
+                    lblMensaje1.Text = "Se ah registrado la solicitud del cliente";
                 }
                 else
                 {
-
+                    lblMensaje1.Visible = false;
+                    lblMensaje2.Visible = true;
+                    lblMensaje2.Text = "Es necesario que las preguntas sean respondidas";
                 }
             }
             catch (Exception ex)
             {
-
-                throw;
+                lblMensaje2.Visible = true;
+                lblMensaje2.Text = ex.Message;
             }
         }
     }

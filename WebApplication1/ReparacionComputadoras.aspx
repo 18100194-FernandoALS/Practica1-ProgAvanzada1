@@ -9,10 +9,51 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="Content/Style1.css" rel="stylesheet" type="text/css" />
+
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://codeseven.github.com/toastr/toastr.js"></script>    
+    <link rel="stylesheet" type="text/css" href="http://codeseven.github.com/toastr/toastr.css" />
+    <link rel="stylesheet" type="text/css" href="http://codeseven.github.com/toastr/toastr-responsive.css" />    
+    <script type="text/javascript" src="toastrsample.js"></script>
+    <link rel="stylesheet" type="text/css" href="toastrsample.css" />
+
+
+    <script type="text/javascript">
+		function showpop(msg, title) {
+			toastr.options = {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": true,
+				"positionClass": "toast-bottom-left",
+				"preventDuplicates": true,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "12000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			}
+			// toastr['success'](msg, title);
+			var d = Date();
+			toastr.warning(msg, title);
+			return false;
+		}
+	</script>
 </head>
 <body>
     <form id="form1" runat="server">
-        
+        <center> 
+            <div style="margin-top:40px;">
+                <asp:Label ID="lblMensaje1" runat="server" Text="" CssClass="alert alert-success"></asp:Label>
+                <asp:Label ID="lblMensaje2" runat="server" Text="" CssClass="alert alert-danger"></asp:Label>
+            </div>
+        </center>
+
         <div class="margen">
             <h1 style="margin-left: 15px;">Solicitud</h1>
             
