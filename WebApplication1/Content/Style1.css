@@ -1,0 +1,19 @@
+﻿.pregunta {
+	margin-bottom: 15px;
+}
+
+.margen {
+	border: 1px double black;
+	margin-left: 60px;
+	margin-right: 1200px;
+	margin-top: 50px;
+	border-radius: 20px;
+}
+
+.rads {
+	margin-left: 30px;
+}
+
+.guardar {
+	margin-right: 25px;
+}
